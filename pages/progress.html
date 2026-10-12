@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Placement Readiness Breakdown - ReadySkills</title>
+  <link rel="icon" type="image/svg+xml" href="/public/favicon.svg">
+  <link rel="stylesheet" href="/src/css/style.css">
+  <link rel="stylesheet" href="/src/css/dashboard.css">
+  <link rel="stylesheet" href="/src/css/responsive.css">
+</head>
+<body>
+
+  <div class="sidebar-backdrop"></div>
+
+  <div class="dashboard-wrapper">
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <i class="bi bi-mortarboard-fill"></i>
+        </div>
+        <span class="fw-bold fs-5">Ready<span class="text-primary">Skills</span></span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main</div>
+        <a href="/pages/dashboard.html" class="nav-link-custom" data-nav="dashboard">
+          <i class="bi bi-grid-fill"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="/pages/profile.html" class="nav-link-custom" data-nav="profile">
+          <i class="bi bi-person-badge"></i>
+          <span>My Profile</span>
+        </a>
+
+        <div class="nav-section-title">Skills & Roles</div>
+        <a href="/pages/skills.html" class="nav-link-custom" data-nav="skills">
+          <i class="bi bi-cpu"></i>
+          <span>My Skills</span>
+        </a>
+        <a href="/pages/job-roles.html" class="nav-link-custom" data-nav="job-roles">
+          <i class="bi bi-briefcase"></i>
+          <span>Job Roles</span>
+        </a>
+        <a href="/pages/skill-gap.html" class="nav-link-custom" data-nav="skill-gap">
+          <i class="bi bi-bar-chart-line"></i>
+          <span>Gap Analysis</span>
+        </a>
+
+        <div class="nav-section-title">Preparation</div>
+        <a href="/pages/assessment.html" class="nav-link-custom" data-nav="assessment">
+          <i class="bi bi-patch-question"></i>
+          <span>Assessment Quiz</span>
+        </a>
+        <a href="/pages/learning-path.html" class="nav-link-custom" data-nav="learning-path">
+          <i class="bi bi-signpost-split"></i>
+          <span>Learning Path</span>
+        </a>
+        <a href="/pages/projects.html" class="nav-link-custom" data-nav="projects">
+          <i class="bi bi-code-slash"></i>
+          <span>Projects</span>
+        </a>
+        <a href="/pages/certifications.html" class="nav-link-custom" data-nav="certifications">
+          <i class="bi bi-award"></i>
+          <span>Certifications</span>
+        </a>
+        <a href="/pages/progress.html" class="nav-link-custom" data-nav="progress">
+          <i class="bi bi-graph-up"></i>
+          <span>Readiness Score</span>
+        </a>
+
+        <div class="nav-section-title admin-only-link d-none">Administration</div>
+        <a href="/pages/admin.html" class="nav-link-custom admin-only-link d-none" data-nav="admin">
+          <i class="bi bi-shield-lock"></i>
+          <span>Admin Portal</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-user">
+        <div class="user-avatar current-user-initials">U</div>
+        <div class="flex-grow-1 overflow-hidden">
+          <div class="fw-semibold text-white text-truncate small current-user-name">Loading...</div>
+          <div class="text-white-50 text-truncate smaller" style="font-size: 0.75rem;" id="user-role-badge">Student</div>
+        </div>
+        <button class="btn btn-sm btn-link text-white-50 p-0 btn-logout" title="Logout">
+          <i class="bi bi-box-arrow-right fs-5"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+      <header class="dashboard-topbar">
+        <div class="d-flex align-items-center gap-3">
+          <button class="btn btn-light d-lg-none p-1" id="sidebar-toggler">
+            <i class="bi bi-list fs-4"></i>
+          </button>
+          <div>
+            <h5 class="fw-bold mb-0">Placement Readiness Score Breakdown</h5>
+            <small class="text-muted">Transparent mathematical formula evaluating campus placement suitability</small>
+          </div>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+
+        <!-- Provisional Alert Banner (if applicable) -->
+        <div id="provisional-banner" class="alert alert-warning border-warning shadow-sm rounded-4 p-4 mb-4 d-none">
+          <div class="d-flex align-items-start gap-3">
+            <i class="bi bi-exclamation-triangle-fill fs-3 text-warning"></i>
+            <div>
+              <h5 class="fw-bold mb-1 text-dark">Provisional Score Notice</h5>
+              <p class="mb-2" id="provisional-msg-txt">Your score is currently provisional due to incomplete benchmark items.</p>
+              <div id="missing-items-badges" class="d-flex flex-wrap gap-2"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Big Score Hero Card -->
+        <div class="card-modern p-4 mb-4 gradient-navy text-white text-center">
+          <span class="badge bg-primary bg-opacity-50 text-white px-3 py-1 rounded-pill small mb-2" id="target-role-badge">
+            Target Role: Loading...
+          </span>
+          <h1 class="display-2 fw-extrabold text-info mb-1" id="overall-score-display">0%</h1>
+          <div class="d-inline-block">
+            <span class="badge-pill-custom badge-matched fs-6 px-4 py-2" id="readiness-category-tag">Evaluating</span>
+          </div>
+          <p class="text-white-50 mt-3 mb-0 small max-w-xl mx-auto">
+            Calculated via: (Skills &times; 40%) + (Assessment &times; 35%) + (Projects &times; 15%) + (Certifications &times; 10%)
+          </p>
+        </div>
+
+        <!-- 4 Component Formula Grid -->
+        <div class="row g-4 mb-4">
+          <!-- Component 1: Skill Match (40%) -->
+          <div class="col-md-6 col-xl-3">
+            <div class="card-modern p-4 h-100 border-top border-primary border-4">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="text-muted small fw-semibold">Pillar 1: Skills</span>
+                <span class="badge bg-primary bg-opacity-10 text-primary fw-bold">40% Weight</span>
+              </div>
+              <h3 class="fw-bold text-dark mb-1" id="skill-score-num">0%</h3>
+              <div class="progress progress-modern mb-2" style="height: 6px;">
+                <div class="progress-bar bg-primary" id="skill-score-bar" style="width: 0%"></div>
+              </div>
+              <p class="small text-muted mb-3 flex-grow-1">
+                Weighted competency match against role requirements.
+              </p>
+              <div class="pt-2 border-top small text-muted">
+                Contribution: <strong class="text-dark" id="skill-contrib-txt">0 / 40 pts</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Component 2: Technical Assessment (35%) -->
+          <div class="col-md-6 col-xl-3">
+            <div class="card-modern p-4 h-100 border-top border-info border-4">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="text-muted small fw-semibold">Pillar 2: Quiz Test</span>
+                <span class="badge bg-info bg-opacity-10 text-info fw-bold">35% Weight</span>
+              </div>
+              <h3 class="fw-bold text-dark mb-1" id="assess-score-num">0%</h3>
+              <div class="progress progress-modern mb-2" style="height: 6px;">
+                <div class="progress-bar bg-info" id="assess-score-bar" style="width: 0%"></div>
+              </div>
+              <p class="small text-muted mb-3 flex-grow-1">
+                Verified multiple-choice benchmark examination.
+              </p>
+              <div class="pt-2 border-top small text-muted">
+                Contribution: <strong class="text-dark" id="assess-contrib-txt">0 / 35 pts</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Component 3: Projects (15%) -->
+          <div class="col-md-6 col-xl-3">
+            <div class="card-modern p-4 h-100 border-top border-warning border-4">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="text-muted small fw-semibold">Pillar 3: Projects</span>
+                <span class="badge bg-warning bg-opacity-10 text-warning fw-bold">15% Weight</span>
+              </div>
+              <h3 class="fw-bold text-dark mb-1" id="proj-score-num">0%</h3>
+              <div class="progress progress-modern mb-2" style="height: 6px;">
+                <div class="progress-bar bg-warning" id="proj-score-bar" style="width: 0%"></div>
+              </div>
+              <p class="small text-muted mb-3 flex-grow-1">
+                Practical codebase repositories & deployed applications.
+              </p>
+              <div class="pt-2 border-top small text-muted">
+                Contribution: <strong class="text-dark" id="proj-contrib-txt">0 / 15 pts</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Component 4: Certifications (10%) -->
+          <div class="col-md-6 col-xl-3">
+            <div class="card-modern p-4 h-100 border-top border-success border-4">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="text-muted small fw-semibold">Pillar 4: Credentials</span>
+                <span class="badge bg-success bg-opacity-10 text-success fw-bold">10% Weight</span>
+              </div>
+              <h3 class="fw-bold text-dark mb-1" id="cert-score-num">0%</h3>
+              <div class="progress progress-modern mb-2" style="height: 6px;">
+                <div class="progress-bar bg-success" id="cert-score-bar" style="width: 0%"></div>
+              </div>
+              <p class="small text-muted mb-3 flex-grow-1">
+                Industry certifications & professional recognitions.
+              </p>
+              <div class="pt-2 border-top small text-muted">
+                Contribution: <strong class="text-dark" id="cert-contrib-txt">0 / 10 pts</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tier Reference & Checklist -->
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <div class="card-modern p-4">
+              <h5 class="fw-bold mb-3">Readiness Category Tiers</h5>
+              <div class="table-responsive">
+                <table class="table table-bordered mb-0 align-middle">
+                  <thead class="table-light small">
+                    <tr>
+                      <th>Category</th>
+                      <th>Score Range</th>
+                      <th>Placement Recommendation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="table-success bg-opacity-25">
+                      <td><span class="badge-pill-custom badge-matched">Placement Ready</span></td>
+                      <td class="fw-bold">80% – 100%</td>
+                      <td class="small">Top-tier readiness. Qualified for Tier-1 corporate placement drives.</td>
+                    </tr>
+                    <tr class="table-primary bg-opacity-25">
+                      <td><span class="badge-pill-custom badge-primary-soft">Nearly Ready</span></td>
+                      <td class="fw-bold">60% – 79.9%</td>
+                      <td class="small">Solid core foundation. Needs closing 1-2 critical technical skill gaps.</td>
+                    </tr>
+                    <tr class="table-warning bg-opacity-25">
+                      <td><span class="badge-pill-custom badge-improvement">Developing</span></td>
+                      <td class="fw-bold">40% – 59.9%</td>
+                      <td class="small">Moderate readiness. Complete practice projects & take mock tests.</td>
+                    </tr>
+                    <tr class="table-danger bg-opacity-25">
+                      <td><span class="badge-pill-custom badge-missing">Needs Strong Improvement</span></td>
+                      <td class="fw-bold">0% – 39.9%</td>
+                      <td class="small">Significant gaps. Follow step-by-step learning path recommendations.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="card-modern p-4 h-100">
+              <h5 class="fw-bold mb-3">How to Boost Your Score</h5>
+              <div class="d-flex flex-column gap-3 small">
+                <div class="d-flex align-items-start gap-2">
+                  <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                  <div>
+                    <strong class="text-dark d-block">Take the Benchmark Assessment</strong>
+                    <span class="text-muted">Worth 35 points! A high test score immediately raises your placement readiness bracket.</span>
+                  </div>
+                </div>
+                <div class="d-flex align-items-start gap-2">
+                  <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                  <div>
+                    <strong class="text-dark d-block">Add 3+ Projects</strong>
+                    <span class="text-muted">Earn maximum 15 project points by linking GitHub repos demonstrating your tech stack.</span>
+                  </div>
+                </div>
+                <div class="d-flex align-items-start gap-2">
+                  <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                  <div>
+                    <strong class="text-dark d-block">Rate all Required Skills</strong>
+                    <span class="text-muted">Update your proficiency ratings as you learn to raise the 40-point skill match pillar.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script type="module" src="/src/js/pages/progress.js"></script>
+</body>
+</html>

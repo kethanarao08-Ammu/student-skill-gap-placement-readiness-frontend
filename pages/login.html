@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - Student Skill Gap & Placement Readiness</title>
+  <link rel="icon" type="image/svg+xml" href="/public/favicon.svg">
+  <link rel="stylesheet" href="/src/css/style.css">
+  <link rel="stylesheet" href="/src/css/responsive.css">
+</head>
+<body class="d-flex align-items-center justify-content-center min-vh-100 py-5" style="background: linear-gradient(135deg, #0B132B 0%, #1C2541 100%);">
+
+  <div class="container" style="max-width: 480px;">
+    <div class="text-center mb-4">
+      <a href="/index.html" class="d-inline-flex align-items-center gap-2 text-decoration-none text-white fs-3 fw-bold">
+        <div class="brand-icon">
+          <i class="bi bi-mortarboard-fill"></i>
+        </div>
+        <span>Ready<span class="text-primary">Skills</span></span>
+      </a>
+      <p class="text-white-50 mt-2 mb-0">Sign in to your account to continue</p>
+    </div>
+
+    <div class="card card-modern p-4 p-md-5 shadow-xl">
+      <h4 class="fw-bold text-dark mb-4 text-center">Welcome Back</h4>
+
+      <div id="error-alert" class="alert alert-danger d-none py-2 px-3 small" role="alert"></div>
+
+      <form id="login-form">
+        <div class="mb-3">
+          <label for="email" class="form-label small fw-semibold text-secondary">Email Address</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-envelope"></i></span>
+            <input type="email" class="form-control bg-light border-start-0" id="email" placeholder="name@college.edu" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <label for="password" class="form-label small fw-semibold text-secondary mb-0">Password</label>
+          </div>
+          <div class="input-group mt-1">
+            <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-lock"></i></span>
+            <input type="password" class="form-control bg-light border-start-0 border-end-0" id="password" placeholder="••••••••" required autocomplete="current-password">
+            <button class="btn btn-light border border-start-0 text-muted" type="button" id="toggle-password">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn btn-primary-custom w-100 py-2 fw-semibold d-flex align-items-center justify-content-center gap-2">
+          <span>Sign In</span>
+          <i class="bi bi-arrow-right"></i>
+        </button>
+      </form>
+
+      <!-- Demo Account Quick Fill Buttons -->
+      <div class="mt-4 pt-3 border-top">
+        <div class="text-center small text-muted mb-2 fw-semibold">Quick Demo Logins</div>
+        <div class="d-grid gap-2 d-sm-flex">
+          <button type="button" class="btn btn-outline-custom flex-grow-1 py-1 small" id="btn-fill-student">
+            <i class="bi bi-person me-1"></i> Student Demo
+          </button>
+          <button type="button" class="btn btn-outline-custom flex-grow-1 py-1 small" id="btn-fill-admin">
+            <i class="bi bi-shield-lock me-1"></i> Admin Demo
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center mt-4 pt-2">
+        <p class="small text-muted mb-0">
+          Don't have an account yet? 
+          <a href="/pages/register.html" class="text-primary fw-semibold text-decoration-none">Create Student Account</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+  <script type="module" src="/src/js/pages/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Assessment - ReadySkills</title>
+  <link rel="icon" type="image/svg+xml" href="/public/favicon.svg">
+  <link rel="stylesheet" href="/src/css/style.css">
+  <link rel="stylesheet" href="/src/css/dashboard.css">
+  <link rel="stylesheet" href="/src/css/responsive.css">
+</head>
+<body>
+
+  <div class="sidebar-backdrop"></div>
+
+  <div class="dashboard-wrapper">
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <i class="bi bi-mortarboard-fill"></i>
+        </div>
+        <span class="fw-bold fs-5">Ready<span class="text-primary">Skills</span></span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main</div>
+        <a href="/pages/dashboard.html" class="nav-link-custom" data-nav="dashboard">
+          <i class="bi bi-grid-fill"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="/pages/profile.html" class="nav-link-custom" data-nav="profile">
+          <i class="bi bi-person-badge"></i>
+          <span>My Profile</span>
+        </a>
+
+        <div class="nav-section-title">Skills & Roles</div>
+        <a href="/pages/skills.html" class="nav-link-custom" data-nav="skills">
+          <i class="bi bi-cpu"></i>
+          <span>My Skills</span>
+        </a>
+        <a href="/pages/job-roles.html" class="nav-link-custom" data-nav="job-roles">
+          <i class="bi bi-briefcase"></i>
+          <span>Job Roles</span>
+        </a>
+        <a href="/pages/skill-gap.html" class="nav-link-custom" data-nav="skill-gap">
+          <i class="bi bi-bar-chart-line"></i>
+          <span>Gap Analysis</span>
+        </a>
+
+        <div class="nav-section-title">Preparation</div>
+        <a href="/pages/assessment.html" class="nav-link-custom" data-nav="assessment">
+          <i class="bi bi-patch-question"></i>
+          <span>Assessment Quiz</span>
+        </a>
+        <a href="/pages/learning-path.html" class="nav-link-custom" data-nav="learning-path">
+          <i class="bi bi-signpost-split"></i>
+          <span>Learning Path</span>
+        </a>
+        <a href="/pages/projects.html" class="nav-link-custom" data-nav="projects">
+          <i class="bi bi-code-slash"></i>
+          <span>Projects</span>
+        </a>
+        <a href="/pages/certifications.html" class="nav-link-custom" data-nav="certifications">
+          <i class="bi bi-award"></i>
+          <span>Certifications</span>
+        </a>
+        <a href="/pages/progress.html" class="nav-link-custom" data-nav="progress">
+          <i class="bi bi-graph-up"></i>
+          <span>Readiness Score</span>
+        </a>
+
+        <div class="nav-section-title admin-only-link d-none">Administration</div>
+        <a href="/pages/admin.html" class="nav-link-custom admin-only-link d-none" data-nav="admin">
+          <i class="bi bi-shield-lock"></i>
+          <span>Admin Portal</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-user">
+        <div class="user-avatar current-user-initials">U</div>
+        <div class="flex-grow-1 overflow-hidden">
+          <div class="fw-semibold text-white text-truncate small current-user-name">Loading...</div>
+          <div class="text-white-50 text-truncate smaller" style="font-size: 0.75rem;" id="user-role-badge">Student</div>
+        </div>
+        <button class="btn btn-sm btn-link text-white-50 p-0 btn-logout" title="Logout">
+          <i class="bi bi-box-arrow-right fs-5"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+      <header class="dashboard-topbar">
+        <div class="d-flex align-items-center gap-3">
+          <button class="btn btn-light d-lg-none p-1" id="sidebar-toggler">
+            <i class="bi bi-list fs-4"></i>
+          </button>
+          <div>
+            <h5 class="fw-bold mb-0">Placement Assessment Portal</h5>
+            <small class="text-muted">Validate your technical readiness through benchmark tests</small>
+          </div>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+
+        <!-- VIEW 1: Assessment Home & History -->
+        <div id="view-home">
+          <!-- Active Assessment Card -->
+          <div class="card-modern p-4 mb-4 gradient-navy text-white">
+            <div class="row align-items-center g-4">
+              <div class="col-lg-8">
+                <span class="badge bg-primary bg-opacity-50 text-white px-3 py-1 rounded-pill small mb-2">Verified Assessment</span>
+                <h3 class="fw-bold mb-2" id="assessment-title">Technical Readiness Comprehensive Exam</h3>
+                <p class="text-light text-opacity-75 mb-3" id="assessment-desc">
+                  Covers core algorithms, Java OOP, database design, REST APIs, and system concepts.
+                </p>
+                <div class="d-flex flex-wrap gap-4 small text-light text-opacity-75">
+                  <div><i class="bi bi-question-circle me-1 text-info"></i> <span id="assessment-q-count">10 Questions</span></div>
+                  <div><i class="bi bi-clock me-1 text-warning"></i> <span id="assessment-duration">15 Minutes</span></div>
+                  <div><i class="bi bi-award me-1 text-success"></i> 100 Maximum Marks</div>
+                </div>
+              </div>
+              <div class="col-lg-4 text-lg-end">
+                <button id="btn-start-quiz" class="btn btn-primary-custom btn-lg px-4 py-3 d-inline-flex align-items-center gap-2">
+                  <i class="bi bi-play-circle-fill fs-5"></i>
+                  <span>Start Assessment</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Past Attempts History Table -->
+          <div class="card-modern p-4">
+            <h6 class="fw-bold mb-3">Your Assessment Attempt History</h6>
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+                <thead class="table-light small text-uppercase text-muted">
+                  <tr>
+                    <th>Date & Time</th>
+                    <th>Assessment</th>
+                    <th>Score %</th>
+                    <th>Result</th>
+                    <th>Category</th>
+                    <th class="text-end">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="history-tbody">
+                  <tr><td colspan="6" class="text-center py-4 text-muted">Loading history...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW 2: Active Test / Quiz View -->
+        <div id="view-quiz" class="d-none">
+          <div class="card-modern p-3 mb-3 bg-white shadow-sm sticky-top" style="top: 70px; z-index: 850;">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <span class="fw-bold" id="quiz-question-counter">Question 1 of 10</span>
+                <span class="badge-pill-custom badge-primary-soft ms-2" id="quiz-question-category">General</span>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <span class="text-muted small">Time Remaining:</span>
+                <div class="badge bg-dark fs-6 px-3 py-1 font-monospace" id="quiz-timer">15:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="quiz-card mb-4">
+            <h5 class="fw-bold text-dark mb-4 lh-base" id="quiz-question-text">
+              Loading question...
+            </h5>
+
+            <div id="quiz-options-container" class="space-y-2 mb-4">
+              <!-- Options populated via JS -->
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+              <button id="btn-prev-question" class="btn btn-outline-custom" disabled>
+                &larr; Previous
+              </button>
+              <div class="d-flex gap-2">
+                <button id="btn-next-question" class="btn btn-outline-custom">
+                  Next &rarr;
+                </button>
+                <button id="btn-submit-quiz" class="btn btn-primary-custom px-4">
+                  Submit Assessment
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW 3: Results & Detailed Review View -->
+        <div id="view-results" class="d-none">
+          <div class="card-modern p-4 mb-4 text-center">
+            <span class="badge-pill-custom badge-matched mb-2 fs-6 px-3" id="res-readiness-cat">Placement Ready</span>
+            <h1 class="display-3 fw-extrabold text-primary mb-1" id="res-score-pct">0%</h1>
+            <p class="text-muted mb-3" id="res-score-summary">You answered 0 out of 0 questions correctly.</p>
+
+            <div class="row g-3 justify-content-center max-w-lg mx-auto mb-4" id="res-category-perf">
+              <!-- Category performance badges -->
+            </div>
+
+            <div class="d-flex justify-content-center gap-3">
+              <button id="btn-retake-quiz" class="btn btn-outline-custom">
+                <i class="bi bi-arrow-repeat me-1"></i> Retake Test
+              </button>
+              <a href="/pages/dashboard.html" class="btn btn-primary-custom">
+                Return to Dashboard &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Question-by-Question Review -->
+          <div class="card-modern p-4">
+            <h5 class="fw-bold mb-4">Comprehensive Question Review</h5>
+            <div id="res-question-review-list" class="d-flex flex-column gap-4">
+              <!-- Review items populated via JS -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script type="module" src="/src/js/pages/assessment.js"></script>
+</body>
+</html>

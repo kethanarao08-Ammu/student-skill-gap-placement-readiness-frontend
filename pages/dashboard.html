@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard - ReadySkills</title>
+  <link rel="icon" type="image/svg+xml" href="/public/favicon.svg">
+  <link rel="stylesheet" href="/src/css/style.css">
+  <link rel="stylesheet" href="/src/css/dashboard.css">
+  <link rel="stylesheet" href="/src/css/responsive.css">
+</head>
+<body>
+
+  <div class="sidebar-backdrop"></div>
+
+  <div class="dashboard-wrapper">
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <i class="bi bi-mortarboard-fill"></i>
+        </div>
+        <span class="fw-bold fs-5">Ready<span class="text-primary">Skills</span></span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main</div>
+        <a href="/pages/dashboard.html" class="nav-link-custom" data-nav="dashboard">
+          <i class="bi bi-grid-fill"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="/pages/profile.html" class="nav-link-custom" data-nav="profile">
+          <i class="bi bi-person-badge"></i>
+          <span>My Profile</span>
+        </a>
+
+        <div class="nav-section-title">Skills & Roles</div>
+        <a href="/pages/skills.html" class="nav-link-custom" data-nav="skills">
+          <i class="bi bi-cpu"></i>
+          <span>My Skills</span>
+        </a>
+        <a href="/pages/job-roles.html" class="nav-link-custom" data-nav="job-roles">
+          <i class="bi bi-briefcase"></i>
+          <span>Job Roles</span>
+        </a>
+        <a href="/pages/skill-gap.html" class="nav-link-custom" data-nav="skill-gap">
+          <i class="bi bi-bar-chart-line"></i>
+          <span>Gap Analysis</span>
+        </a>
+
+        <div class="nav-section-title">Preparation</div>
+        <a href="/pages/assessment.html" class="nav-link-custom" data-nav="assessment">
+          <i class="bi bi-patch-question"></i>
+          <span>Assessment Quiz</span>
+        </a>
+        <a href="/pages/learning-path.html" class="nav-link-custom" data-nav="learning-path">
+          <i class="bi bi-signpost-split"></i>
+          <span>Learning Path</span>
+        </a>
+        <a href="/pages/projects.html" class="nav-link-custom" data-nav="projects">
+          <i class="bi bi-code-slash"></i>
+          <span>Projects</span>
+        </a>
+        <a href="/pages/certifications.html" class="nav-link-custom" data-nav="certifications">
+          <i class="bi bi-award"></i>
+          <span>Certifications</span>
+        </a>
+        <a href="/pages/progress.html" class="nav-link-custom" data-nav="progress">
+          <i class="bi bi-graph-up"></i>
+          <span>Readiness Score</span>
+        </a>
+
+        <div class="nav-section-title admin-only-link d-none">Administration</div>
+        <a href="/pages/admin.html" class="nav-link-custom admin-only-link d-none" data-nav="admin">
+          <i class="bi bi-shield-lock"></i>
+          <span>Admin Portal</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-user">
+        <div class="user-avatar current-user-initials">U</div>
+        <div class="flex-grow-1 overflow-hidden">
+          <div class="fw-semibold text-white text-truncate small current-user-name">Loading...</div>
+          <div class="text-white-50 text-truncate smaller" style="font-size: 0.75rem;" id="user-role-badge">Student</div>
+        </div>
+        <button class="btn btn-sm btn-link text-white-50 p-0 btn-logout" title="Logout">
+          <i class="bi bi-box-arrow-right fs-5"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+      <!-- Topbar -->
+      <header class="dashboard-topbar">
+        <div class="d-flex align-items-center gap-3">
+          <button class="btn btn-light d-lg-none p-1" id="sidebar-toggler" aria-label="Toggle Navigation">
+            <i class="bi bi-list fs-4"></i>
+          </button>
+          <div>
+            <h5 class="fw-bold mb-0">Student Dashboard</h5>
+            <small class="text-muted d-none d-sm-block">Placement readiness metrics & action roadmap</small>
+          </div>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <a href="/pages/assessment.html" class="btn btn-outline-custom btn-sm d-none d-md-flex align-items-center gap-2">
+            <i class="bi bi-pencil-square text-primary"></i>
+            <span>Take Assessment</span>
+          </a>
+          <a href="/pages/skill-gap.html" class="btn btn-primary-custom btn-sm d-flex align-items-center gap-2">
+            <i class="bi bi-lightning-charge-fill"></i>
+            <span>Skill Gap</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- Dashboard Content -->
+      <div class="dashboard-content">
+
+        <!-- Profile Completion Notice -->
+        <div id="profile-banner" class="alert bg-white border shadow-sm rounded-4 p-3 mb-4 d-none">
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+            <div class="d-flex align-items-center gap-3">
+              <div class="stat-icon bg-warning bg-opacity-10 text-warning">
+                <i class="bi bi-exclamation-triangle"></i>
+              </div>
+              <div>
+                <h6 class="fw-bold mb-1">Your profile is <span id="profile-completion-txt">0%</span> complete</h6>
+                <p class="small text-muted mb-0">Fill in college details, CGPA, and desired job role to optimize readiness analysis.</p>
+              </div>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+              <div class="progress progress-modern flex-grow-1" style="width: 120px;">
+                <div id="profile-progress-bar" class="progress-bar bg-warning" style="width: 0%"></div>
+              </div>
+              <a href="/pages/profile.html" class="btn btn-outline-custom btn-sm text-nowrap">Complete Profile</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Key Stat Cards -->
+        <div class="row g-4 mb-4">
+          <!-- Readiness Score -->
+          <div class="col-sm-6 col-xl-3">
+            <div class="stat-card h-100">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="text-muted small fw-semibold">Overall Readiness</span>
+                <span id="readiness-category-badge" class="badge-pill-custom badge-improvement">Evaluating</span>
+              </div>
+              <h2 id="overall-score-txt" class="fw-bold mb-1">0%</h2>
+              <div class="small text-muted" id="provisional-indicator">
+                <i class="bi bi-info-circle me-1"></i> Based on 4-pillar formula
+              </div>
+            </div>
+          </div>
+
+          <!-- Target Role & Match -->
+          <div class="col-sm-6 col-xl-3">
+            <div class="stat-card h-100">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="text-muted small fw-semibold">Target Job Role</span>
+                <div class="stat-icon bg-primary bg-opacity-10 text-primary p-2" style="width:34px; height:34px; font-size:1rem;">
+                  <i class="bi bi-briefcase"></i>
+                </div>
+              </div>
+              <h5 id="target-role-txt" class="fw-bold mb-1 text-truncate">Not Selected</h5>
+              <div class="small text-muted">
+                Skill Match: <strong id="skill-match-txt" class="text-primary">0%</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Technical Assessment -->
+          <div class="col-sm-6 col-xl-3">
+            <div class="stat-card h-100">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="text-muted small fw-semibold">Assessment Score</span>
+                <div class="stat-icon bg-info bg-opacity-10 text-info p-2" style="width:34px; height:34px; font-size:1rem;">
+                  <i class="bi bi-patch-check"></i>
+                </div>
+              </div>
+              <h2 id="assessment-score-txt" class="fw-bold mb-1">--</h2>
+              <div class="small text-muted" id="assessment-status-txt">
+                No attempt recorded
+              </div>
+            </div>
+          </div>
+
+          <!-- Skills Added -->
+          <div class="col-sm-6 col-xl-3">
+            <div class="stat-card h-100">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="text-muted small fw-semibold">Technical Profile</span>
+                <div class="stat-icon bg-success bg-opacity-10 text-success p-2" style="width:34px; height:34px; font-size:1rem;">
+                  <i class="bi bi-layers"></i>
+                </div>
+              </div>
+              <h2 id="total-skills-txt" class="fw-bold mb-1">0</h2>
+              <div class="small text-muted">
+                <span id="projects-count-txt">0</span> Projects &bull; <span id="certs-count-txt">0</span> Certs
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Middle Row: Readiness Composition & Critical Skill Gaps -->
+        <div class="row g-4 mb-4">
+          <!-- Readiness Breakdown Card -->
+          <div class="col-lg-5">
+            <div class="card-modern p-4 h-100">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-bold mb-0">Readiness Score Composition</h6>
+                <a href="/pages/progress.html" class="small text-primary text-decoration-none fw-semibold">Details &rarr;</a>
+              </div>
+              <div class="score-circle mb-3">
+                <canvas id="readinessDoughnutChart"></canvas>
+              </div>
+              <div class="space-y-2 mt-3 pt-2 border-top">
+                <div class="d-flex justify-content-between small text-muted mb-1">
+                  <span><i class="bi bi-square-fill text-primary me-2"></i>Skill Match (40% Weight)</span>
+                  <strong id="comp-skill-match">0%</strong>
+                </div>
+                <div class="d-flex justify-content-between small text-muted mb-1">
+                  <span><i class="bi bi-square-fill text-info me-2"></i>Assessment Score (35% Weight)</span>
+                  <strong id="comp-assessment">0%</strong>
+                </div>
+                <div class="d-flex justify-content-between small text-muted mb-1">
+                  <span><i class="bi bi-square-fill text-warning me-2"></i>Projects Portfolio (15% Weight)</span>
+                  <strong id="comp-projects">0%</strong>
+                </div>
+                <div class="d-flex justify-content-between small text-muted">
+                  <span><i class="bi bi-square-fill text-success me-2"></i>Certifications (10% Weight)</span>
+                  <strong id="comp-certs">0%</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Top Skill Gaps -->
+          <div class="col-lg-7">
+            <div class="card-modern p-4 h-100">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                  <h6 class="fw-bold mb-0">High-Priority Skill Gaps</h6>
+                  <small class="text-muted">Critical skills needed for your target role</small>
+                </div>
+                <a href="/pages/skill-gap.html" class="small text-primary text-decoration-none fw-semibold">View All Gaps &rarr;</a>
+              </div>
+
+              <div id="top-gaps-container" class="d-flex flex-column gap-3">
+                <div class="text-center py-4 text-muted">
+                  <div class="spinner-border spinner-border-sm text-primary" role="status"></div> Loading gaps...
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Row: Learning Roadmap & Strongest Skills -->
+        <div class="row g-4">
+          <!-- Recommended Learning Items -->
+          <div class="col-lg-7">
+            <div class="card-modern p-4 h-100">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                  <h6 class="fw-bold mb-0">Recommended Next Steps</h6>
+                  <small class="text-muted">Targeted tutorials and roadmaps</small>
+                </div>
+                <a href="/pages/learning-path.html" class="small text-primary text-decoration-none fw-semibold">Full Roadmap &rarr;</a>
+              </div>
+
+              <div id="learning-items-container" class="d-flex flex-column gap-3">
+                <div class="text-center py-4 text-muted">
+                  <div class="spinner-border spinner-border-sm text-primary" role="status"></div> Loading recommendations...
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Strongest Skills & Quick Tools -->
+          <div class="col-lg-5">
+            <div class="card-modern p-4 h-100">
+              <h6 class="fw-bold mb-3">Your Top Rated Skills</h6>
+              <div id="strongest-skills-container" class="d-flex flex-column gap-2 mb-4">
+                <div class="text-muted small">Loading...</div>
+              </div>
+
+              <h6 class="fw-bold mb-2 pt-2 border-top">Quick Actions</h6>
+              <div class="d-grid gap-2">
+                <a href="/pages/skills.html" class="btn btn-outline-custom text-start py-2 px-3 small d-flex justify-content-between align-items-center">
+                  <span><i class="bi bi-plus-circle text-primary me-2"></i>Add or Update Skills</span>
+                  <i class="bi bi-chevron-right text-muted"></i>
+                </a>
+                <a href="/pages/projects.html" class="btn btn-outline-custom text-start py-2 px-3 small d-flex justify-content-between align-items-center">
+                  <span><i class="bi bi-folder-plus text-warning me-2"></i>Add Project to Portfolio</span>
+                  <i class="bi bi-chevron-right text-muted"></i>
+                </a>
+                <a href="/pages/assessment.html" class="btn btn-outline-custom text-start py-2 px-3 small d-flex justify-content-between align-items-center">
+                  <span><i class="bi bi-lightning-charge text-info me-2"></i>Take Technical Test</span>
+                  <i class="bi bi-chevron-right text-muted"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script type="module" src="/src/js/pages/dashboard.js"></script>
+</body>
+</html>

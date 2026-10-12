@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration - ReadySkills</title>
+  <link rel="icon" type="image/svg+xml" href="/public/favicon.svg">
+  <link rel="stylesheet" href="/src/css/style.css">
+  <link rel="stylesheet" href="/src/css/responsive.css">
+</head>
+<body class="d-flex align-items-center justify-content-center min-vh-100 py-5" style="background: linear-gradient(135deg, #0B132B 0%, #1C2541 100%);">
+
+  <div class="container" style="max-width: 580px;">
+    <div class="text-center mb-4">
+      <a href="/index.html" class="d-inline-flex align-items-center gap-2 text-decoration-none text-white fs-3 fw-bold">
+        <div class="brand-icon">
+          <i class="bi bi-mortarboard-fill"></i>
+        </div>
+        <span>Ready<span class="text-primary">Skills</span></span>
+      </a>
+      <p class="text-white-50 mt-2 mb-0">Create your student placement readiness profile</p>
+    </div>
+
+    <div class="card card-modern p-4 p-md-5 shadow-xl">
+      <h4 class="fw-bold text-dark mb-4 text-center">Student Registration</h4>
+
+      <div id="error-alert" class="alert alert-danger d-none py-2 px-3 small" role="alert"></div>
+
+      <form id="register-form">
+        <div class="mb-3">
+          <label for="fullName" class="form-label small fw-semibold text-secondary">Full Name</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-person"></i></span>
+            <input type="text" class="form-control bg-light border-start-0" id="fullName" placeholder="e.g. Rahul Sharma" required minlength="2" maxlength="100">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label small fw-semibold text-secondary">Email Address</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-envelope"></i></span>
+            <input type="email" class="form-control bg-light border-start-0" id="email" placeholder="rahul@college.edu" required>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label small fw-semibold text-secondary">Password</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-lock"></i></span>
+            <input type="password" class="form-control bg-light border-start-0 border-end-0" id="password" placeholder="Min 6 characters" required minlength="6">
+            <button class="btn btn-light border border-start-0 text-muted" type="button" id="toggle-password">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
+          <div class="form-text small">At least 6 characters.</div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <label for="college" class="form-label small fw-semibold text-secondary">College / University</label>
+            <input type="text" class="form-control bg-light" id="college" placeholder="e.g. MIT, Bangalore">
+          </div>
+          <div class="col-md-6">
+            <label for="degree" class="form-label small fw-semibold text-secondary">Degree</label>
+            <select class="form-select bg-light" id="degree">
+              <option value="B.Tech" selected>B.Tech</option>
+              <option value="B.E.">B.E.</option>
+              <option value="BCA">BCA</option>
+              <option value="MCA">MCA</option>
+              <option value="M.Tech">M.Tech</option>
+              <option value="B.Sc CS">B.Sc CS</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="branch" class="form-label small fw-semibold text-secondary">Branch / Department</label>
+            <input type="text" class="form-control bg-light" id="branch" placeholder="Computer Science">
+          </div>
+          <div class="col-md-6">
+            <label for="graduationYear" class="form-label small fw-semibold text-secondary">Graduation Year</label>
+            <input type="number" class="form-control bg-light" id="graduationYear" placeholder="2026" min="2020" max="2035">
+          </div>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn btn-primary-custom w-100 py-2 fw-semibold d-flex align-items-center justify-content-center gap-2">
+          <span>Create Account</span>
+          <i class="bi bi-arrow-right"></i>
+        </button>
+      </form>
+
+      <div class="text-center mt-4 pt-2">
+        <p class="small text-muted mb-0">
+          Already registered? 
+          <a href="/pages/login.html" class="text-primary fw-semibold text-decoration-none">Sign in here</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+  <script type="module" src="/src/js/pages/register.js"></script>
+</body>
+</html>

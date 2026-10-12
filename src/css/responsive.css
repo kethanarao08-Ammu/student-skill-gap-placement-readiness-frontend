@@ -1,0 +1,55 @@
+/* Responsive Utilities and Breakpoints */
+
+@media (max-width: 991.98px) {
+  .dashboard-sidebar {
+    transform: translateX(-100%);
+  }
+
+  .dashboard-sidebar.show {
+    transform: translateX(0);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+  }
+
+  .dashboard-main {
+    margin-left: 0;
+  }
+
+  .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .sidebar-backdrop.show {
+    display: block;
+  }
+
+  .dashboard-content {
+    padding: 1.25rem;
+  }
+
+  .dashboard-topbar {
+    padding: 0 1.25rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .custom-toast {
+    min-width: calc(100vw - 2rem);
+    right: 1rem;
+    left: 1rem;
+  }
+
+  .stat-card {
+    padding: 1.15rem;
+  }
+
+  .dashboard-content {
+    padding: 1rem;
+  }
+}
