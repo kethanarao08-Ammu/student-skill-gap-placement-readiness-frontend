@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       activeAssessment = assessments[0];
       document.getElementById('assessment-title').textContent = activeAssessment.title;
       document.getElementById('assessment-desc').textContent = activeAssessment.description;
-      document.getElementById('assessment-duration').textContent = `${activeAssessment.durationMinutes} Minutes`;
-      secondsRemaining = activeAssessment.durationMinutes * 60;
+      document.getElementById('assessment-duration').textContent = `${activeAssessment.timeLimitMinutes} Minutes`;
+      secondsRemaining = activeAssessment.timeLimitMinutes * 60;
     }
 
     await loadHistory();
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       currentQIndex = 0;
       answers = {};
-      secondsRemaining = activeAssessment.durationMinutes * 60;
+      secondsRemaining = activeAssessment.timeLimitMinutes * 60;
 
       viewHome.classList.add('d-none');
       viewResults.classList.add('d-none');

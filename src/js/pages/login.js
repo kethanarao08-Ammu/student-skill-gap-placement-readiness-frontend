@@ -48,7 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       const response = await authApi.login({ email, password });
-      setAuth(response.token, {
+      if (!response.accessToken) {
+        throw new Error('Login response did not include an access token.');
+      }
+
+      setAuth(response.accessToken, {
         id: response.id,
         email: response.email,
         fullName: response.fullName,

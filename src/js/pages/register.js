@@ -41,7 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       const response = await authApi.register(payload);
-      setAuth(response.token, {
+      if (!response.accessToken) {
+        throw new Error('Registration response did not include an access token.');
+      }
+
+      setAuth(response.accessToken, {
         id: response.id,
         email: response.email,
         fullName: response.fullName,

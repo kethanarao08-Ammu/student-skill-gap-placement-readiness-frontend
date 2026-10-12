@@ -11,7 +11,8 @@ export async function request(endpoint, options = {}) {
     ...(options.headers || {})
   };
 
-  if (token) {
+  const isPublicAuthRequest = endpoint === '/auth/register' || endpoint === '/auth/login';
+  if (token && !isPublicAuthRequest) {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
@@ -41,11 +42,15 @@ export async function request(endpoint, options = {}) {
     if (!response.ok) {
       let errorMessage = 'An error occurred';
       if (typeof data === 'object' && data !== null) {
-        if (data.message) {
+        const fieldErrors = data.fieldErrors || data.errors;
+        if (fieldErrors && typeof fieldErrors === 'object') {
+          const messages = Object.values(fieldErrors).filter((message) => typeof message === 'string');
+          if (messages.length > 0) {
+            errorMessage = messages.join(', ');
+          }
+        }
+        if (errorMessage === 'An error occurred' && data.message) {
           errorMessage = data.message;
-        } else if (data.errors && typeof data.errors === 'object') {
-          // Validation error map
-          errorMessage = Object.values(data.errors).join(', ');
         }
       } else if (typeof data === 'string') {
         errorMessage = data;

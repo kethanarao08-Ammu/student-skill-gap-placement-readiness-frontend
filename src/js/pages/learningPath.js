@@ -164,12 +164,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   function updateProgress() {
     const total = recommendations.length;
     const completed = recommendations.filter(r => r.status === 'COMPLETED').length;
+    const inProgress = recommendations.filter(r => r.status === 'IN_PROGRESS').length;
+    const pending = recommendations.filter(r => r.status === 'NOT_STARTED').length;
     const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
 
     document.getElementById('completed-count-txt').textContent = completed;
     document.getElementById('total-count-txt').textContent = total;
     document.getElementById('roadmap-progress-bar').style.width = `${pct}%`;
     document.getElementById('roadmap-pct-txt').textContent = `${pct}% Modules Completed`;
+    document.getElementById('roadmap-status-breakdown').textContent =
+      `${inProgress} in progress • ${pending} pending. Click “Mark Done” to count a module as completed.`;
   }
 
   function getPriorityBadgeClass(p) {

@@ -47,12 +47,12 @@
           <label for="password" class="form-label small fw-semibold text-secondary">Password</label>
           <div class="input-group">
             <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-lock"></i></span>
-            <input type="password" class="form-control bg-light border-start-0 border-end-0" id="password" placeholder="Min 6 characters" required minlength="6">
+            <input type="password" class="form-control bg-light border-start-0 border-end-0" id="password" placeholder="Create a strong password" required minlength="8" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" title="Use at least 8 characters with uppercase, lowercase, number, and special character">
             <button class="btn btn-light border border-start-0 text-muted" type="button" id="toggle-password">
               <i class="bi bi-eye"></i>
             </button>
           </div>
-          <div class="form-text small">At least 6 characters.</div>
+          <div class="form-text small">Use 8+ characters with uppercase, lowercase, a number, and a special character.</div>
         </div>
 
         <div class="row g-3 mb-4">
