@@ -1,9 +1,9 @@
-import { API_BASE_URL } from '../config.js';
+import { getApiUrl } from '../config.js';
 import { getToken, clearAuth } from '../utils/authGuard.js';
 import { showToast } from '../utils/notifications.js';
 
 export async function request(endpoint, options = {}) {
-  const url = `${API_BASE_URL}${endpoint}`;
+  const url = getApiUrl(endpoint);
   const token = getToken();
 
   const headers = {

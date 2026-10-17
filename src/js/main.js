@@ -3,6 +3,7 @@
  * Student Skill Gap & Placement Readiness System
  */
 import { renderNavbar } from './components/navbar.js';
+import { API_BASE_URL } from './config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Render layout components
@@ -14,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     statusOutput.innerHTML = `
       <div><strong>[System Initialized]</strong> Vite Frontend Runtime Active</div>
       <div><strong>[Timestamp]</strong> ${timestamp}</div>
-      <div><strong>[API Gateway Target]</strong> ${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'}</div>
+      <div><strong>[API Gateway Target]</strong> ${API_BASE_URL}</div>
       <div><strong>[Phase Status]</strong> Phase 1 Directory Structure &amp; Configurations Ready</div>
     `;
   }
